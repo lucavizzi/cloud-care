@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,17 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+    /**
+     * Login callback. Clearing old token and creating a new one. 
+     */
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                $user = $request->user();
+                $user->tokens()->delete(); //deletes old token
+                session(['access_token' => $user->createToken($user->email.'-AuthToken')->plainTextToken]); // stores a new one in session 
+            }
+        });
     }
 
     /**

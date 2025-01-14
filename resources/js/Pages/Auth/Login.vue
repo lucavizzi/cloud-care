@@ -52,6 +52,7 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="username"
+                    
                 />
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
@@ -69,7 +70,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block mt-4" style="display:none">
                 <label class="flex items-center">
                     <Checkbox v-model:checked="form.remember" name="remember" />
                     <span class="ms-2 text-sm text-gray-600">Remember me</span>

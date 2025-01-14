@@ -64,4 +64,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected function getAccessToken()
+    {
+        return session('access_token');
+    }
 }
