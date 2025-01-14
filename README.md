@@ -21,6 +21,7 @@ https://github.com/lucavizzi/cloud-care/blob/main/app/Providers/FortifyServicePr
 La variabile di sessione viene poi utilizzata nella route della pagina che eseguirà le interrogazioni all'API, definita in web.php, per il passaggio del dato a Vuejs (riga 22)
 <img src="https://lucavizzi.altervista.org/readme/route-web.png" alt="Screenshot Route Web">
 https://github.com/lucavizzi/cloud-care/blob/main/routes/web.php
+
 È stata usata una variabile di sessione per evitare di salvare in chiaro nel data-base il token generato.
 
 Il token viene poi utilizzato da Vuejs per interrogare (con Axios) l’api che funge da proxy (righe 5 e 23).
