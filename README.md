@@ -17,7 +17,7 @@ Il login dell'utente è stato intercettato tramite il Service Provider di Fortif
 A login avvenuto, il token precedente viene eliminato (riga 31) e ne viene generato uno nuovo che viene salvato in una variabile di sessione (riga 32)
 <img src="https://lucavizzi.altervista.org/readme/provider.png" alt="Screenshot Provider">
 
-La variabile di sessione viene poi utilizzata nella route della pagina che eseguirà le interrogazioni all'api0, definita in web.php, per il passaggio del dato a Vuejs (riga 22)
+La variabile di sessione viene poi utilizzata nella route della pagina che eseguirà le interrogazioni all'API, definita in web.php, per il passaggio del dato a Vuejs (riga 22)
 <img src="https://lucavizzi.altervista.org/readme/route-web.png" alt="Screenshot Route Web">
 È stata usata una variabile di sessione per evitare di salvare in chiaro nel data-base il token generato.
 
