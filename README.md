@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://lucavizzi.altervista.org/readme/drunk-laravel.jpg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -7,60 +7,31 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Drunk Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Il test è stato svolto utilizzando lo starter kit [Laravel Jetstream](https://jetstream.laravel.com/introduction.html) per avere già pronte le funzionalità relative all'account utente.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Per l'emissione del token è stato usato [Sanctum](https://laravel.com/docs/8.x/sanctum)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Il login dell'utente è stato intercettato tramite il Service Provider di Fortify.
+A login avvenuto, il token precedente viene eliminato (riga 31) e ne viene generato uno nuovo che viene salvato in una variabile di sessione (riga 32)
+<img src="https://lucavizzi.altervista.org/readme/provider.png" alt="Screenshot Provider">
 
-## Learning Laravel
+La variabile di sessione viene poi utilizzata nella route della pagina che eseguirà le interrogazioni all'api0, definita in web.php, per il passaggio del dato a Vuejs (riga 22)
+<img src="https://lucavizzi.altervista.org/readme/route-web.png" alt="Screenshot Route Web">
+È stata usata una variabile di sessione per evitare di salvare in chiaro nel data-base il token generato.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Il token viene poi utilizzato da Vuejs per interrogare (con Axios) l’api che funge da proxy (righe 5 e 23).
+<img src="https://lucavizzi.altervista.org/readme/vuejs.png" alt="Screenshot API call">
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Di seguito è riportata la route dell’api protetta dal middleware Sanctum.
+<img src="https://lucavizzi.altervista.org/readme/route-api.png" alt="Screenshot Route API">
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Il progetto è stato pubblicato su un hosting gratuito ed è visionabile all’indirizzo: [https://lucavizzi.altervista.org/](https://lucavizzi.altervista.org/)
 
-## Laravel Sponsors
+Accedendo si viene rediretti sulla pagina di login perché anche la route definita in web.php è protetta con Sanctum ma per accedere è sufficiente l’header x-xsrf-token gestito autonomamente da Sanctum a differenza delle route definite in api.php dove è necessario utilizzare un token valido per accedere.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Il modulo per il login (https://lucavizzi.altervista.org/login) avrà già preimpostate le credenziali (email e password) per accedere.
+<img src="https://lucavizzi.altervista.org/readme/login.png" alt="Screenshot Login">
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A login effettuato si verrà nuovamente rediretti sulla root del dominio dove sarà possibile visionare l’api che funge da proxy.

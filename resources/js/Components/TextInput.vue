@@ -13,6 +13,8 @@ onMounted(() => {
     if (input.value.hasAttribute('autofocus')) {
         input.value.focus();
     }
+    document.querySelector('#email').dispatchEvent(new Event('input'));
+    document.querySelector('#password').dispatchEvent(new Event('input'));
 });
 
 defineExpose({ focus: () => input.value.focus() });
