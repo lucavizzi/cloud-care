@@ -16,16 +16,22 @@ Per l'emissione del token è stato usato [Sanctum](https://laravel.com/docs/8.x/
 Il login dell'utente è stato intercettato tramite il Service Provider di Fortify.
 A login avvenuto, il token precedente viene eliminato (riga 31) e ne viene generato uno nuovo che viene salvato in una variabile di sessione (riga 32)
 <img src="https://lucavizzi.altervista.org/readme/provider.png" alt="Screenshot Provider">
+https://github.com/lucavizzi/cloud-care/blob/main/app/Providers/FortifyServiceProvider.php
 
 La variabile di sessione viene poi utilizzata nella route della pagina che eseguirà le interrogazioni all'API, definita in web.php, per il passaggio del dato a Vuejs (riga 22)
 <img src="https://lucavizzi.altervista.org/readme/route-web.png" alt="Screenshot Route Web">
+https://github.com/lucavizzi/cloud-care/blob/main/routes/web.php
 È stata usata una variabile di sessione per evitare di salvare in chiaro nel data-base il token generato.
 
 Il token viene poi utilizzato da Vuejs per interrogare (con Axios) l’api che funge da proxy (righe 5 e 23).
 <img src="https://lucavizzi.altervista.org/readme/vuejs.png" alt="Screenshot API call">
+https://github.com/lucavizzi/cloud-care/blob/main/resources/js/Components/Welcome.vue
+
 
 Di seguito è riportata la route dell’api protetta dal middleware Sanctum.
 <img src="https://lucavizzi.altervista.org/readme/route-api.png" alt="Screenshot Route API">
+https://github.com/lucavizzi/cloud-care/blob/main/routes/api.php
+
 
 Il progetto è stato pubblicato su un hosting gratuito ed è visionabile all’indirizzo: [https://lucavizzi.altervista.org/](https://lucavizzi.altervista.org/)
 
